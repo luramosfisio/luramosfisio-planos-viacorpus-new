@@ -1929,6 +1929,7 @@ const IDEAL_BY_COMBO = {
 const state = {
   tab: 'atual',
   competencia: '2026-03',
+  precosMes: '2026-03',
   patients: loadPatients(),
   flash: '',
 };
@@ -1949,6 +1950,20 @@ function fmt(v) {
 
 function fmtInt(v) {
   return Number(v || 0).toLocaleString('pt-BR');
+}
+
+function fmtDate(dateStr) {
+  if (!dateStr) return '—';
+  const s = String(dateStr);
+  if (s.length >= 10 && s[4] === '-' && s[7] === '-') {
+    const [y, m, d] = s.slice(0, 10).split('-');
+    return `${d}/${m}/${y}`;
+  }
+  if (s.length >= 7 && s[4] === '-') {
+    const [y, m] = s.slice(0, 7).split('-');
+    return `01/${m}/${y}`;
+  }
+  return s;
 }
 
 function monthLabel(key) {
@@ -2247,11 +2262,74 @@ function card(title, value, sub='') {
   return `<div class="card metric-card"><div class="label">${htmlEscape(title)}</div><div class="value">${value}</div>${sub ? `<div class="sub">${htmlEscape(sub)}</div>` : ''}</div>`;
 }
 
+
+function currentRenewalMonths() {
+  return [...new Set(activePatients().map(p => ym(p.contratoAtual?.fimContrato)).filter(Boolean))].sort();
+}
+
+function currentPriceSuggestionRows(selectedMonth) {
+  const active = activePatients().filter(p => ym(p.contratoAtual?.fimContrato) === selectedMonth);
+  const comboBase = [
+    { plano: 'Anual', frequencia: '1x', ideal: 335 },
+    { plano: 'Anual', frequencia: '2x', ideal: 545 },
+    { plano: 'Anual', frequencia: '3x', ideal: 745 },
+    { plano: 'Semestral', frequencia: '1x', ideal: 365 },
+    { plano: 'Semestral', frequencia: '2x', ideal: 575 },
+    { plano: 'Semestral', frequencia: '3x', ideal: 705 },
+    { plano: 'Mensal', frequencia: '1x', ideal: 395 },
+    { plano: 'Mensal', frequencia: '2x', ideal: 635 },
+    { plano: 'Mensal', frequencia: '3x', ideal: 775 }
+  ];
+  return comboBase.map(c => {
+    const pts = active.filter(p => p.contratoAtual?.plano === c.plano && p.contratoAtual?.frequencia === c.frequencia);
+    const actualAvg = pts.length ? pts.reduce((s,p)=> s + Number(p.contratoAtual?.valor || 0), 0) / pts.length : null;
+    const sweet = getSweet({ plano: c.plano, frequencia: c.frequencia, fimContrato: selectedMonth + '-01' }, c.ideal);
+    const recuperacao = pts.reduce((s,p)=> {
+      const atual = Number(p.contratoAtual?.valor || 0);
+      const ideal = deriveIdeal(c.plano, c.frequencia, p.valorIdealAtual);
+      return s + Math.max(0, Math.min(sweet - atual, ideal - atual));
+    }, 0);
+    return {
+      ...c,
+      qtd: pts.length,
+      mediaAtual: actualAvg,
+      sweet,
+      recuperacao
+    };
+  }).filter(r => r.qtd > 0);
+}
+
+function renderMiniBars(rows) {
+  const maxVal = Math.max(...rows.map(r => Math.max(r.idealDelta || 0, r.sweetDelta || 0)), 1);
+  return `
+    <div class="mini-bars">
+      ${rows.map(r => `
+        <div class="mini-row">
+          <div class="mini-label">${monthShort(r.key)}</div>
+          <div class="mini-track">
+            <div class="mini-bar ideal" style="width:${(r.idealDelta / maxVal) * 100}%"></div>
+            <div class="mini-bar sweet" style="width:${(r.sweetDelta / maxVal) * 100}%"></div>
+          </div>
+          <div class="mini-values">
+            <span>${fmt(r.idealDelta)}</span>
+            <strong>${fmt(r.sweetDelta)}</strong>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+
 function renderCurrentTab() {
   const metrics = currentMetrics();
   const renewal = upcomingRenewalMap();
   const byFreq = groupedBy(metrics.active, p => p.contratoAtual.frequencia);
   const byPlan = groupedBy(metrics.active, p => p.contratoAtual.plano);
+  const months = currentRenewalMonths();
+  const selectedPriceMonth = months.includes(state.precosMes) ? state.precosMes : (months[0] || '');
+  if (selectedPriceMonth !== state.precosMes) state.precosMes = selectedPriceMonth;
+  const suggestionRows = selectedPriceMonth ? currentPriceSuggestionRows(selectedPriceMonth) : [];
   return `
     <div class="grid cards-4">
       ${card('Pacientes ativos', `<span>${fmtInt(metrics.active.length)}</span>`)}
@@ -2263,12 +2341,17 @@ function renderCurrentTab() {
     </div>
 
     <div class="card section">
-      <div class="section-title">Mapa atual de renovações</div>
-      <div class="section-sub">Baseado apenas nos contratos atuais dos pacientes ativos.</div>
+      <div class="section-title">Incremento de Receita por Mês</div>
+      <div class="section-sub">Comparação entre potencial Ideal e Sweet Spot com base nos contratos atuais dos pacientes ativos.</div>
+      ${renewal.length ? renderMiniBars(renewal) : '<div class="empty-block">Nenhuma renovação futura encontrada.</div>'}
+      <div class="legend">
+        <span><i class="dot ideal"></i> Ideal</span>
+        <span><i class="dot sweet"></i> Sweet Spot</span>
+      </div>
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>Mês</th><th>Pacientes</th><th>Receita atual</th><th>Potencial ideal</th><th>Sweet spot</th></tr>
+            <tr><th>Mês</th><th>Pacientes</th><th>Receita atual</th><th>Incremento ideal</th><th>Incremento sweet spot</th></tr>
           </thead>
           <tbody>
             ${renewal.map(r => `<tr>
@@ -2278,6 +2361,39 @@ function renderCurrentTab() {
               <td>${fmt(r.idealDelta)}</td>
               <td>${fmt(r.sweetDelta)}</td>
             </tr>`).join('') || `<tr><td colspan="5" class="empty">Nenhuma renovação futura encontrada.</td></tr>`}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card section">
+      <div class="toolbar">
+        <div>
+          <div class="section-title">Tabela de preços sugerida por mês</div>
+          <div class="section-sub">Sweet Spot sugerido para o mês selecionado, comparando média atual e potencial de recuperação.</div>
+        </div>
+        <div>
+          <label class="label">Mês</label><br />
+          <select id="precosMesSelect">
+            ${months.map(c => `<option value="${c}" ${c === selectedPriceMonth ? 'selected' : ''}>${monthLabel(c)}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Plano</th><th>Freq.</th><th>Qtd.</th><th>Média atual</th><th>Sweet Spot</th><th>Ideal</th><th>Recuperação</th></tr>
+          </thead>
+          <tbody>
+            ${suggestionRows.map(r => `<tr>
+              <td>${r.plano}</td>
+              <td>${r.frequencia}</td>
+              <td>${fmtInt(r.qtd)}</td>
+              <td>${r.mediaAtual == null ? '—' : fmt(r.mediaAtual)}</td>
+              <td>${fmt(r.sweet)}</td>
+              <td>${fmt(r.ideal)}</td>
+              <td>${fmt(r.recuperacao)}</td>
+            </tr>`).join('') || `<tr><td colspan="7" class="empty">Nenhum combo encontrado neste mês.</td></tr>`}
           </tbody>
         </table>
       </div>
@@ -2344,32 +2460,50 @@ function renderHistoryTab() {
 
     <div class="card section">
       <div class="section-title">${monthLabel(selected)} — detalhamento por paciente</div>
+      <div class="section-sub">Tabela com os campos estratégicos da renovação e comparação com o resultado real do mês.</div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
               <th>Paciente</th>
               <th>Status</th>
-              <th>Antes</th>
-              <th>Depois</th>
-              <th>Delta</th>
+              <th>Data renovação</th>
+              <th>Freq.</th>
+              <th>Plano</th>
+              <th>Paga hoje</th>
+              <th>Sweet Spot sugerido</th>
+              <th>Reajuste %</th>
+              <th>Incremento</th>
+              <th>Preço renovado</th>
               <th>Obs.</th>
             </tr>
           </thead>
           <tbody>
             ${m.rows.map(r => {
-              const delta = r.status === 'renovou' ? (Number(r.next?.valor || 0) - Number(r.prev?.valor || 0)) : -Number(r.prev?.valor || 0);
-              const before = `${r.prev.plano} · ${r.prev.frequencia} · ${fmt(r.prev.valor)}`;
-              const after = r.next ? `${r.next.plano} · ${r.next.frequencia} · ${fmt(r.next.valor)}` : '—';
+              const ideal = deriveIdeal(r.prev.plano, r.prev.frequencia, r.paciente.valorIdealAtual);
+              const sweet = getSweet({
+                plano: r.prev.plano,
+                frequencia: r.prev.frequencia,
+                fimContrato: r.prev.fimContrato || `${selected}-01`
+              }, ideal);
+              const incremento = Math.max(0, Math.min(sweet - Number(r.prev.valor || 0), ideal - Number(r.prev.valor || 0)));
+              const reajPct = Number(r.prev.valor || 0) > 0 ? (incremento / Number(r.prev.valor || 0)) * 100 : 0;
+              const precoRenovado = r.status === 'renovou' ? Number(r.next?.valor || 0) : null;
+              const dataRenovacao = r.event?.fimContratoAnterior || r.prev?.fimContrato || `${selected}-01`;
               return `<tr>
                 <td><strong>${htmlEscape(r.paciente.nome)}</strong></td>
                 <td>${statusBadge(r.status)}</td>
-                <td>${htmlEscape(before)}</td>
-                <td>${htmlEscape(after)}</td>
-                <td class="${delta >= 0 ? 'accent-text' : 'danger-text'}">${delta >= 0 ? '+' : ''}${fmt(delta)}</td>
+                <td>${htmlEscape(fmtDate(dataRenovacao))}</td>
+                <td>${htmlEscape(r.prev.frequencia || '—')}</td>
+                <td>${htmlEscape(r.prev.plano || '—')}</td>
+                <td>${fmt(r.prev.valor)}</td>
+                <td>${fmt(sweet)}</td>
+                <td>${reajPct > 0 ? '+' : ''}${reajPct.toFixed(1)}%</td>
+                <td class="accent-text">+${fmt(incremento)}</td>
+                <td>${precoRenovado != null ? fmt(precoRenovado) : '—'}</td>
                 <td>${htmlEscape(r.observacao || '')}</td>
               </tr>`;
-            }).join('') || `<tr><td colspan="6" class="empty">Nenhum paciente encontrado nesta competência.</td></tr>`}
+            }).join('') || `<tr><td colspan="11" class="empty">Nenhum paciente encontrado nesta competência.</td></tr>`}
           </tbody>
         </table>
       </div>
@@ -2481,6 +2615,20 @@ function render() {
       .section-title { font-size:16px; font-weight:800; margin-bottom:4px; }
       .toolbar { display:flex; justify-content:space-between; align-items:end; gap:14px; flex-wrap:wrap; margin-bottom:16px; }
       .table-wrap { overflow:auto; margin-top:14px; }
+      .empty-block { margin-top:14px; color:#94a3b8; background:#0f172a; border:1px solid #1e293b; border-radius:14px; padding:16px; }
+      .mini-bars { display:grid; gap:10px; margin-top:14px; }
+      .mini-row { display:grid; grid-template-columns: 70px 1fr 180px; gap:12px; align-items:center; }
+      .mini-label { color:#cbd5e1; font-size:12px; font-weight:700; }
+      .mini-track { position:relative; height:18px; background:#0f172a; border:1px solid #1e293b; border-radius:999px; overflow:hidden; }
+      .mini-bar { position:absolute; left:0; top:0; height:100%; border-radius:999px; }
+      .mini-bar.ideal { background:rgba(59,130,246,.35); }
+      .mini-bar.sweet { background:rgba(249,115,22,.8); }
+      .mini-values { display:flex; justify-content:space-between; gap:12px; font-size:12px; color:#94a3b8; }
+      .mini-values strong { color:#f8fafc; }
+      .legend { display:flex; gap:16px; flex-wrap:wrap; margin-top:12px; color:#94a3b8; font-size:12px; }
+      .dot { display:inline-block; width:10px; height:10px; border-radius:999px; margin-right:6px; vertical-align:middle; }
+      .dot.ideal { background:rgba(59,130,246,.55); }
+      .dot.sweet { background:rgba(249,115,22,.95); }
       table { width:100%; border-collapse:collapse; min-width:720px; }
       th, td { text-align:left; padding:12px 10px; border-bottom:1px solid #1a2030; font-size:13px; }
       th { color:#94a3b8; font-weight:700; background:#0f172a; position:sticky; top:0; }
@@ -2557,6 +2705,13 @@ function bindEvents() {
   if (competenciaSelect) {
     competenciaSelect.addEventListener('change', (e) => {
       state.competencia = e.target.value;
+      render();
+    });
+  }
+  const precosMesSelect = document.getElementById('precosMesSelect');
+  if (precosMesSelect) {
+    precosMesSelect.addEventListener('change', (e) => {
+      state.precosMes = e.target.value;
       render();
     });
   }
