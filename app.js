@@ -9,6 +9,13 @@ const SEED_PATIENTS = [
     "prejuizo": 126,
     "fimContrato": "2026-06-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 449,
+      "fimContrato": "2026-06-30"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -21,6 +28,13 @@ const SEED_PATIENTS = [
     "prejuizo": 136,
     "fimContrato": "2026-04-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-04-30"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -33,6 +47,13 @@ const SEED_PATIENTS = [
     "prejuizo": 166,
     "fimContrato": "2026-10-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 379,
+      "fimContrato": "2026-10-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -45,6 +66,13 @@ const SEED_PATIENTS = [
     "prejuizo": 186,
     "fimContrato": "2026-09-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 359,
+      "fimContrato": "2026-09-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -57,6 +85,13 @@ const SEED_PATIENTS = [
     "prejuizo": 157,
     "fimContrato": "2026-04-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 178,
+      "fimContrato": "2026-04-30"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -69,6 +104,13 @@ const SEED_PATIENTS = [
     "prejuizo": 150,
     "fimContrato": "2027-01-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 395,
+      "fimContrato": "2027-01-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -81,6 +123,13 @@ const SEED_PATIENTS = [
     "prejuizo": 140,
     "fimContrato": "2026-12-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 405,
+      "fimContrato": "2026-12-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -93,6 +142,13 @@ const SEED_PATIENTS = [
     "prejuizo": 183,
     "fimContrato": "2026-05-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 362,
+      "fimContrato": "2026-05-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -100,11 +156,18 @@ const SEED_PATIENTS = [
     "nome": "Evani silva Gonzales",
     "plano": "Anual",
     "frequencia": "2x",
-    "valorAtual": 455,
+    "valorAtual": 380,
     "valorIdeal": 545,
-    "prejuizo": 90,
-    "fimContrato": "2027-03-31",
+    "prejuizo": 165,
+    "fimContrato": "2026-03-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 380,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": {
       "plano": "Anual",
       "frequencia": "2x",
@@ -136,6 +199,13 @@ const SEED_PATIENTS = [
     "prejuizo": 165,
     "fimContrato": "2026-09-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 380,
+      "fimContrato": "2026-09-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -148,18 +218,32 @@ const SEED_PATIENTS = [
     "prejuizo": 245,
     "fimContrato": "2027-01-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "3x",
+      "valor": 500,
+      "fimContrato": "2027-01-31"
+    },
+    "valorIdealAtual": 745,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
   {
     "nome": "Eliana Maria dos Santos",
-    "plano": "Anual",
+    "plano": "Semestral",
     "frequencia": "2x",
-    "valorAtual": 429,
-    "valorIdeal": 545,
-    "prejuizo": 116,
-    "fimContrato": "2027-03-31",
+    "valorAtual": 385,
+    "valorIdeal": 575,
+    "prejuizo": 190,
+    "fimContrato": "2026-03-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 385,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": {
       "plano": "Semestral",
       "frequencia": "2x",
@@ -191,6 +275,13 @@ const SEED_PATIENTS = [
     "prejuizo": 172,
     "fimContrato": "2026-05-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 373,
+      "fimContrato": "2026-05-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -203,6 +294,13 @@ const SEED_PATIENTS = [
     "prejuizo": 172,
     "fimContrato": "2026-05-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 373,
+      "fimContrato": "2026-05-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -210,11 +308,18 @@ const SEED_PATIENTS = [
     "nome": "Angelina Tarso",
     "plano": "Anual",
     "frequencia": "2x",
-    "valorAtual": 429,
+    "valorAtual": 380,
     "valorIdeal": 545,
-    "prejuizo": 116,
-    "fimContrato": "2027-03-31",
+    "prejuizo": 165,
+    "fimContrato": "2026-03-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 380,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": {
       "plano": "Anual",
       "frequencia": "2x",
@@ -246,6 +351,13 @@ const SEED_PATIENTS = [
     "prejuizo": 163,
     "fimContrato": "2026-04-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 172,
+      "fimContrato": "2026-04-30"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -258,6 +370,13 @@ const SEED_PATIENTS = [
     "prejuizo": 163,
     "fimContrato": "2026-04-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 172,
+      "fimContrato": "2026-04-30"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -270,6 +389,13 @@ const SEED_PATIENTS = [
     "prejuizo": 180,
     "fimContrato": "2026-04-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 365,
+      "fimContrato": "2026-04-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -282,6 +408,13 @@ const SEED_PATIENTS = [
     "prejuizo": 55,
     "fimContrato": "2026-10-24",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 280,
+      "fimContrato": "2026-10-24"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -294,6 +427,13 @@ const SEED_PATIENTS = [
     "prejuizo": 105,
     "fimContrato": "2026-04-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 230,
+      "fimContrato": "2026-04-30"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -306,18 +446,32 @@ const SEED_PATIENTS = [
     "prejuizo": 90,
     "fimContrato": "2026-10-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 245,
+      "fimContrato": "2026-10-31"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
   {
     "nome": "Ana Lucia Mastrascusa Rodrigues",
-    "plano": "Semestral",
+    "plano": "Anual",
     "frequencia": "2x",
-    "valorAtual": 496,
-    "valorIdeal": 575,
-    "prejuizo": 79,
-    "fimContrato": "2026-09-30",
+    "valorAtual": 439,
+    "valorIdeal": 545,
+    "prejuizo": 106,
+    "fimContrato": "2026-03-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": {
       "plano": "Anual",
       "frequencia": "2x",
@@ -349,6 +503,13 @@ const SEED_PATIENTS = [
     "prejuizo": 216,
     "fimContrato": "2026-03-31",
     "ativo": false,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 329,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": {
       "plano": "Anual",
       "frequencia": "2x",
@@ -375,6 +536,13 @@ const SEED_PATIENTS = [
     "prejuizo": 188,
     "fimContrato": "2026-04-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 357,
+      "fimContrato": "2026-04-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -387,6 +555,13 @@ const SEED_PATIENTS = [
     "prejuizo": 150,
     "fimContrato": "2026-10-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Mensal",
+      "frequencia": "1x",
+      "valor": 245,
+      "fimContrato": "2026-10-31"
+    },
+    "valorIdealAtual": 395,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -399,6 +574,13 @@ const SEED_PATIENTS = [
     "prejuizo": 268,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Mensal",
+      "frequencia": "2x",
+      "valor": 367,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 635,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -411,6 +593,13 @@ const SEED_PATIENTS = [
     "prejuizo": 159,
     "fimContrato": "2026-06-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 416,
+      "fimContrato": "2026-06-30"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -423,6 +612,13 @@ const SEED_PATIENTS = [
     "prejuizo": 160,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 175,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -435,6 +631,13 @@ const SEED_PATIENTS = [
     "prejuizo": 190,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 355,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -447,6 +650,13 @@ const SEED_PATIENTS = [
     "prejuizo": 190,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 355,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -459,6 +669,13 @@ const SEED_PATIENTS = [
     "prejuizo": 180,
     "fimContrato": "2026-10-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 365,
+      "fimContrato": "2026-10-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -471,6 +688,13 @@ const SEED_PATIENTS = [
     "prejuizo": 136,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -483,6 +707,13 @@ const SEED_PATIENTS = [
     "prejuizo": 133,
     "fimContrato": "2026-06-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 412,
+      "fimContrato": "2026-06-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -495,6 +726,13 @@ const SEED_PATIENTS = [
     "prejuizo": 136,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -507,6 +745,13 @@ const SEED_PATIENTS = [
     "prejuizo": 76,
     "fimContrato": "2027-02-28",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 259,
+      "fimContrato": "2027-02-28"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -519,6 +764,13 @@ const SEED_PATIENTS = [
     "prejuizo": 192,
     "fimContrato": "2026-05-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 353,
+      "fimContrato": "2026-05-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -526,11 +778,18 @@ const SEED_PATIENTS = [
     "nome": "Carla Fernanda Medeiros",
     "plano": "Anual",
     "frequencia": "2x",
-    "valorAtual": 429,
+    "valorAtual": 385,
     "valorIdeal": 545,
-    "prejuizo": 116,
-    "fimContrato": "2027-03-31",
+    "prejuizo": 160,
+    "fimContrato": "2026-03-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 385,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": {
       "plano": "Anual",
       "frequencia": "2x",
@@ -562,6 +821,13 @@ const SEED_PATIENTS = [
     "prejuizo": 85,
     "fimContrato": "2026-04-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 250,
+      "fimContrato": "2026-04-30"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -574,6 +840,13 @@ const SEED_PATIENTS = [
     "prejuizo": 165,
     "fimContrato": "2026-12-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 380,
+      "fimContrato": "2026-12-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -586,6 +859,13 @@ const SEED_PATIENTS = [
     "prejuizo": 90,
     "fimContrato": "2027-02-28",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 245,
+      "fimContrato": "2027-02-28"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -598,6 +878,13 @@ const SEED_PATIENTS = [
     "prejuizo": 80,
     "fimContrato": "2026-06-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 495,
+      "fimContrato": "2026-06-30"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -605,11 +892,18 @@ const SEED_PATIENTS = [
     "nome": "Anita Basilio",
     "plano": "Anual",
     "frequencia": "2x",
-    "valorAtual": 419,
+    "valorAtual": 368,
     "valorIdeal": 545,
-    "prejuizo": 126,
-    "fimContrato": "2027-03-31",
+    "prejuizo": 177,
+    "fimContrato": "2026-03-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 368,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": {
       "plano": "Anual",
       "frequencia": "2x",
@@ -636,11 +930,18 @@ const SEED_PATIENTS = [
     "nome": "Danielle Camps Machado",
     "plano": "Anual",
     "frequencia": "1x",
-    "valorAtual": 279,
+    "valorAtual": 252,
     "valorIdeal": 335,
-    "prejuizo": 56,
-    "fimContrato": "2027-03-31",
+    "prejuizo": 83,
+    "fimContrato": "2026-03-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 252,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": {
       "plano": "Anual",
       "frequencia": "1x",
@@ -672,6 +973,13 @@ const SEED_PATIENTS = [
     "prejuizo": 76,
     "fimContrato": "2026-06-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 259,
+      "fimContrato": "2026-06-30"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -684,6 +992,13 @@ const SEED_PATIENTS = [
     "prejuizo": 103,
     "fimContrato": "2026-06-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "1x",
+      "valor": 262,
+      "fimContrato": "2026-06-30"
+    },
+    "valorIdealAtual": 365,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -696,6 +1011,13 @@ const SEED_PATIENTS = [
     "prejuizo": 73,
     "fimContrato": "2026-06-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 262,
+      "fimContrato": "2026-06-30"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -708,6 +1030,13 @@ const SEED_PATIENTS = [
     "prejuizo": 270,
     "fimContrato": "2026-09-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "3x",
+      "valor": 475,
+      "fimContrato": "2026-09-30"
+    },
+    "valorIdealAtual": 745,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -720,6 +1049,13 @@ const SEED_PATIENTS = [
     "prejuizo": 180,
     "fimContrato": "2026-10-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 365,
+      "fimContrato": "2026-10-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -732,6 +1068,13 @@ const SEED_PATIENTS = [
     "prejuizo": 143,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 192,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -744,6 +1087,13 @@ const SEED_PATIENTS = [
     "prejuizo": 176,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 399,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -756,6 +1106,13 @@ const SEED_PATIENTS = [
     "prejuizo": 330,
     "fimContrato": "2026-04-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "3x",
+      "valor": 415,
+      "fimContrato": "2026-04-30"
+    },
+    "valorIdealAtual": 745,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -768,6 +1125,13 @@ const SEED_PATIENTS = [
     "prejuizo": 175,
     "fimContrato": "2026-07-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 370,
+      "fimContrato": "2026-07-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -780,6 +1144,13 @@ const SEED_PATIENTS = [
     "prejuizo": 146,
     "fimContrato": "2026-07-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 399,
+      "fimContrato": "2026-07-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -792,6 +1163,13 @@ const SEED_PATIENTS = [
     "prejuizo": 176,
     "fimContrato": "2026-07-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 369,
+      "fimContrato": "2026-07-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -804,6 +1182,13 @@ const SEED_PATIENTS = [
     "prejuizo": 159,
     "fimContrato": "2026-05-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 416,
+      "fimContrato": "2026-05-30"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -816,6 +1201,13 @@ const SEED_PATIENTS = [
     "prejuizo": 260,
     "fimContrato": "2026-07-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "3x",
+      "valor": 485,
+      "fimContrato": "2026-07-31"
+    },
+    "valorIdealAtual": 745,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -828,6 +1220,13 @@ const SEED_PATIENTS = [
     "prejuizo": 208,
     "fimContrato": "2026-07-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 337,
+      "fimContrato": "2026-07-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -840,6 +1239,13 @@ const SEED_PATIENTS = [
     "prejuizo": 155,
     "fimContrato": "2026-06-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 420,
+      "fimContrato": "2026-06-30"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -852,6 +1258,13 @@ const SEED_PATIENTS = [
     "prejuizo": 168,
     "fimContrato": "2026-03-31",
     "ativo": false,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 377,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": {
       "plano": "Anual",
       "frequencia": "2x",
@@ -878,6 +1291,13 @@ const SEED_PATIENTS = [
     "prejuizo": 176,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 399,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -890,6 +1310,13 @@ const SEED_PATIENTS = [
     "prejuizo": 175,
     "fimContrato": "2026-06-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 370,
+      "fimContrato": "2026-06-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -902,6 +1329,13 @@ const SEED_PATIENTS = [
     "prejuizo": 180,
     "fimContrato": "2026-10-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 365,
+      "fimContrato": "2026-10-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -914,6 +1348,13 @@ const SEED_PATIENTS = [
     "prejuizo": 190,
     "fimContrato": "2026-04-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 355,
+      "fimContrato": "2026-04-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -926,6 +1367,13 @@ const SEED_PATIENTS = [
     "prejuizo": 180,
     "fimContrato": "2026-04-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 365,
+      "fimContrato": "2026-04-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -938,6 +1386,13 @@ const SEED_PATIENTS = [
     "prejuizo": 190,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 385,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -950,6 +1405,13 @@ const SEED_PATIENTS = [
     "prejuizo": 127,
     "fimContrato": "2026-07-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 418,
+      "fimContrato": "2026-07-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -962,6 +1424,13 @@ const SEED_PATIENTS = [
     "prejuizo": 159,
     "fimContrato": "2026-07-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 416,
+      "fimContrato": "2026-07-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -974,6 +1443,13 @@ const SEED_PATIENTS = [
     "prejuizo": 110,
     "fimContrato": "2026-06-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 465,
+      "fimContrato": "2026-06-30"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -986,6 +1462,13 @@ const SEED_PATIENTS = [
     "prejuizo": 176,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 399,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -998,6 +1481,13 @@ const SEED_PATIENTS = [
     "prejuizo": 146,
     "fimContrato": "2026-04-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 399,
+      "fimContrato": "2026-04-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1010,6 +1500,13 @@ const SEED_PATIENTS = [
     "prejuizo": 146,
     "fimContrato": "2026-04-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 399,
+      "fimContrato": "2026-04-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1022,6 +1519,13 @@ const SEED_PATIENTS = [
     "prejuizo": 127,
     "fimContrato": "2026-10-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 418,
+      "fimContrato": "2026-10-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1034,6 +1538,13 @@ const SEED_PATIENTS = [
     "prejuizo": 76,
     "fimContrato": "2026-10-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 259,
+      "fimContrato": "2026-10-31"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1046,6 +1557,13 @@ const SEED_PATIENTS = [
     "prejuizo": 98,
     "fimContrato": "2027-01-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 447,
+      "fimContrato": "2027-01-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1058,6 +1576,13 @@ const SEED_PATIENTS = [
     "prejuizo": 165,
     "fimContrato": "2026-12-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 380,
+      "fimContrato": "2026-12-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1065,11 +1590,18 @@ const SEED_PATIENTS = [
     "nome": "Anre Luiz da Silva M",
     "plano": "Anual",
     "frequencia": "2x",
-    "valorAtual": 455,
+    "valorAtual": 418,
     "valorIdeal": 545,
-    "prejuizo": 90,
-    "fimContrato": "2027-03-31",
+    "prejuizo": 127,
+    "fimContrato": "2026-03-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 418,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": {
       "plano": "Anual",
       "frequencia": "2x",
@@ -1101,6 +1633,13 @@ const SEED_PATIENTS = [
     "prejuizo": 106,
     "fimContrato": "2026-03-31",
     "ativo": false,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 229,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": {
       "plano": "Anual",
       "frequencia": "1x",
@@ -1120,13 +1659,20 @@ const SEED_PATIENTS = [
   },
   {
     "nome": "Maria Diva Rodrigues",
-    "plano": "15 meses",
+    "plano": "Semestral",
     "frequencia": "2x",
-    "valorAtual": 489,
-    "valorIdeal": 545,
-    "prejuizo": 56,
-    "fimContrato": "2027-06-30",
+    "valorAtual": 439,
+    "valorIdeal": 575,
+    "prejuizo": 136,
+    "fimContrato": "2026-03-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": {
       "plano": "Semestral",
       "frequencia": "2x",
@@ -1158,6 +1704,13 @@ const SEED_PATIENTS = [
     "prejuizo": 76,
     "fimContrato": "2026-07-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 259,
+      "fimContrato": "2026-07-31"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1170,6 +1723,13 @@ const SEED_PATIENTS = [
     "prejuizo": 176,
     "fimContrato": "2026-03-31",
     "ativo": false,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 399,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": {
       "plano": "Semestral",
       "frequencia": "2x",
@@ -1196,6 +1756,13 @@ const SEED_PATIENTS = [
     "prejuizo": 117,
     "fimContrato": "2026-12-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 428,
+      "fimContrato": "2026-12-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1208,6 +1775,13 @@ const SEED_PATIENTS = [
     "prejuizo": 76,
     "fimContrato": "2026-06-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 259,
+      "fimContrato": "2026-06-30"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1220,6 +1794,13 @@ const SEED_PATIENTS = [
     "prejuizo": 106,
     "fimContrato": "2026-12-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-12-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1232,6 +1813,13 @@ const SEED_PATIENTS = [
     "prejuizo": 286,
     "fimContrato": "2026-05-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 259,
+      "fimContrato": "2026-05-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1244,6 +1832,13 @@ const SEED_PATIENTS = [
     "prejuizo": 76,
     "fimContrato": "2026-10-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 469,
+      "fimContrato": "2026-10-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1256,6 +1851,13 @@ const SEED_PATIENTS = [
     "prejuizo": 76,
     "fimContrato": "2026-05-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 259,
+      "fimContrato": "2026-05-30"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1268,6 +1870,13 @@ const SEED_PATIENTS = [
     "prejuizo": 136,
     "fimContrato": "2026-07-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-07-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1280,18 +1889,32 @@ const SEED_PATIENTS = [
     "prejuizo": 176,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 399,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
   {
     "nome": "Laerte Guimaraes",
     "plano": "Semestral",
-    "frequencia": "1x",
-    "valorAtual": 365,
-    "valorIdeal": 365,
-    "prejuizo": 0,
-    "fimContrato": "2026-09-30",
+    "frequencia": "2x",
+    "valorAtual": 439,
+    "valorIdeal": 575,
+    "prejuizo": 136,
+    "fimContrato": "2026-03-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": {
       "plano": "Semestral",
       "frequencia": "2x",
@@ -1323,6 +1946,13 @@ const SEED_PATIENTS = [
     "prejuizo": 127,
     "fimContrato": "2026-07-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 418,
+      "fimContrato": "2026-07-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1335,6 +1965,13 @@ const SEED_PATIENTS = [
     "prejuizo": 127,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 418,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1347,6 +1984,13 @@ const SEED_PATIENTS = [
     "prejuizo": 106,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1359,6 +2003,13 @@ const SEED_PATIENTS = [
     "prejuizo": 163,
     "fimContrato": "2026-05-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 382,
+      "fimContrato": "2026-05-31"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1366,11 +2017,18 @@ const SEED_PATIENTS = [
     "nome": "Jose Carlos Ramao",
     "plano": "Semestral",
     "frequencia": "2x",
-    "valorAtual": 496,
+    "valorAtual": 439,
     "valorIdeal": 575,
-    "prejuizo": 79,
-    "fimContrato": "2026-09-30",
+    "prejuizo": 136,
+    "fimContrato": "2026-03-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": {
       "plano": "Semestral",
       "frequencia": "2x",
@@ -1402,6 +2060,13 @@ const SEED_PATIENTS = [
     "prejuizo": 136,
     "fimContrato": "2026-03-31",
     "ativo": false,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": {
       "plano": "Semestral",
       "frequencia": "2x",
@@ -1428,6 +2093,13 @@ const SEED_PATIENTS = [
     "prejuizo": 157,
     "fimContrato": "2026-09-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 418,
+      "fimContrato": "2026-09-30"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1440,6 +2112,13 @@ const SEED_PATIENTS = [
     "prejuizo": 136,
     "fimContrato": "2026-03-31",
     "ativo": false,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": {
       "plano": "Semestral",
       "frequencia": "2x",
@@ -1466,6 +2145,13 @@ const SEED_PATIENTS = [
     "prejuizo": 125,
     "fimContrato": "2026-03-31",
     "ativo": false,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "1x",
+      "valor": 240,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 365,
     "contratoAnterior": {
       "plano": "Semestral",
       "frequencia": "1x",
@@ -1492,6 +2178,13 @@ const SEED_PATIENTS = [
     "prejuizo": 125,
     "fimContrato": "2026-03-31",
     "ativo": false,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "1x",
+      "valor": 240,
+      "fimContrato": "2026-03-31"
+    },
+    "valorIdealAtual": 365,
     "contratoAnterior": {
       "plano": "Semestral",
       "frequencia": "1x",
@@ -1518,6 +2211,13 @@ const SEED_PATIENTS = [
     "prejuizo": 136,
     "fimContrato": "2026-06-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-06-30"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1530,6 +2230,13 @@ const SEED_PATIENTS = [
     "prejuizo": 76,
     "fimContrato": "2026-10-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 259,
+      "fimContrato": "2026-10-31"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1542,6 +2249,13 @@ const SEED_PATIENTS = [
     "prejuizo": 76,
     "fimContrato": "2026-10-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 259,
+      "fimContrato": "2026-10-31"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1554,6 +2268,13 @@ const SEED_PATIENTS = [
     "prejuizo": 136,
     "fimContrato": "2026-04-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-04-30"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1566,6 +2287,13 @@ const SEED_PATIENTS = [
     "prejuizo": 127,
     "fimContrato": "2026-11-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 418,
+      "fimContrato": "2026-11-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1578,6 +2306,13 @@ const SEED_PATIENTS = [
     "prejuizo": 76,
     "fimContrato": "2026-11-29",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 259,
+      "fimContrato": "2026-11-29"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1590,6 +2325,13 @@ const SEED_PATIENTS = [
     "prejuizo": 76,
     "fimContrato": "2026-11-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 259,
+      "fimContrato": "2026-11-30"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1602,6 +2344,13 @@ const SEED_PATIENTS = [
     "prejuizo": 76,
     "fimContrato": "2026-11-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 259,
+      "fimContrato": "2026-11-30"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1614,6 +2363,13 @@ const SEED_PATIENTS = [
     "prejuizo": 128,
     "fimContrato": "2026-11-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 207,
+      "fimContrato": "2026-11-30"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1626,6 +2382,13 @@ const SEED_PATIENTS = [
     "prejuizo": 56,
     "fimContrato": "2026-11-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 279,
+      "fimContrato": "2026-11-30"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1638,6 +2401,13 @@ const SEED_PATIENTS = [
     "prejuizo": 117,
     "fimContrato": "2026-11-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 428,
+      "fimContrato": "2026-11-30"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1650,6 +2420,13 @@ const SEED_PATIENTS = [
     "prejuizo": 25,
     "fimContrato": "2026-07-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 550,
+      "fimContrato": "2026-07-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1662,6 +2439,13 @@ const SEED_PATIENTS = [
     "prejuizo": 25,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 550,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1674,6 +2458,13 @@ const SEED_PATIENTS = [
     "prejuizo": 25,
     "fimContrato": "2027-01-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 310,
+      "fimContrato": "2027-01-31"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1686,6 +2477,13 @@ const SEED_PATIENTS = [
     "prejuizo": 136,
     "fimContrato": "2026-06-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 439,
+      "fimContrato": "2026-06-30"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1698,6 +2496,13 @@ const SEED_PATIENTS = [
     "prejuizo": 56,
     "fimContrato": "2027-02-28",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 279,
+      "fimContrato": "2027-02-28"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1710,6 +2515,13 @@ const SEED_PATIENTS = [
     "prejuizo": 98,
     "fimContrato": "2027-02-28",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "2x",
+      "valor": 447,
+      "fimContrato": "2027-02-28"
+    },
+    "valorIdealAtual": 545,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1722,6 +2534,13 @@ const SEED_PATIENTS = [
     "prejuizo": 56,
     "fimContrato": "2027-02-28",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 279,
+      "fimContrato": "2027-02-28"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1734,6 +2553,13 @@ const SEED_PATIENTS = [
     "prejuizo": 58,
     "fimContrato": "2026-09-30",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "1x",
+      "valor": 307,
+      "fimContrato": "2026-09-30"
+    },
+    "valorIdealAtual": 365,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1746,6 +2572,13 @@ const SEED_PATIENTS = [
     "prejuizo": 25,
     "fimContrato": "2026-08-31",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Semestral",
+      "frequencia": "2x",
+      "valor": 550,
+      "fimContrato": "2026-08-31"
+    },
+    "valorIdealAtual": 575,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   },
@@ -1758,6 +2591,13 @@ const SEED_PATIENTS = [
     "prejuizo": 56,
     "fimContrato": "2026-02-28",
     "ativo": true,
+    "contratoAtual": {
+      "plano": "Anual",
+      "frequencia": "1x",
+      "valor": 279,
+      "fimContrato": "2026-02-28"
+    },
+    "valorIdealAtual": 335,
     "contratoAnterior": null,
     "historicoRenovacoes": []
   }
@@ -2489,11 +3329,12 @@ function renderHistoryTab() {
               const incremento = Math.max(0, Math.min(sweet - Number(r.prev.valor || 0), ideal - Number(r.prev.valor || 0)));
               const reajPct = Number(r.prev.valor || 0) > 0 ? (incremento / Number(r.prev.valor || 0)) * 100 : 0;
               const precoRenovado = r.status === 'renovou' ? Number(r.next?.valor || 0) : null;
-              const dataRenovacao = r.event?.fimContratoAnterior || r.prev?.fimContrato || `${selected}-01`;
+              const dataRenovacao = r.event?.fimContratoAnterior || r.prev?.fimContrato || null;
+              const dataRenovacaoFmt = dataRenovacao ? fmtDate(dataRenovacao) : '—';
               return `<tr>
                 <td><strong>${htmlEscape(r.paciente.nome)}</strong></td>
                 <td>${statusBadge(r.status)}</td>
-                <td>${htmlEscape(fmtDate(dataRenovacao))}</td>
+                <td>${htmlEscape(dataRenovacaoFmt)}</td>
                 <td>${htmlEscape(r.prev.frequencia || '—')}</td>
                 <td>${htmlEscape(r.prev.plano || '—')}</td>
                 <td>${fmt(r.prev.valor)}</td>
