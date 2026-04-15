@@ -2770,6 +2770,8 @@ const state = {
   tab: 'atual',
   competencia: '2026-03',
   precosMes: '2026-03',
+  historicoStatus: 'all',
+  historicoSweet: 'all',
   patients: loadPatients(),
   flash: '',
 };
@@ -2995,8 +2997,60 @@ function rowsForCompetencia(competencia) {
   return state.patients.map(p => patientRowForCompetencia(p, competencia)).filter(r => r.include).sort((a,b) => a.paciente.nome.localeCompare(b.paciente.nome));
 }
 
+function historyRowDerived(r, competencia) {
+  const ideal = deriveIdeal(r.prev?.plano, r.prev?.frequencia, r.paciente.valorIdealAtual);
+  const sweet = getSweet({
+    plano: r.prev?.plano,
+    frequencia: r.prev?.frequencia,
+    fimContrato: r.prev?.fimContrato || null
+  }, ideal);
+  const valorAnterior = Number(r.prev?.valor || 0);
+  const valorRenovado = r.status === 'renovou' ? Number(r.next?.valor || 0) : null;
+  const incrementoProjetado = Math.max(0, Math.min(sweet - valorAnterior, ideal - valorAnterior));
+  let incremento = null;
+  let reajPct = null;
+  let gapVsSweet = null;
+
+  if (r.status === 'renovou') {
+    incremento = valorRenovado - valorAnterior;
+    reajPct = valorAnterior > 0 ? (incremento / valorAnterior) * 100 : 0;
+    gapVsSweet = valorRenovado - sweet;
+  } else if (r.status === 'pendente') {
+    incremento = incrementoProjetado;
+    reajPct = valorAnterior > 0 ? (incrementoProjetado / valorAnterior) * 100 : 0;
+  }
+
+  return {
+    ideal,
+    sweet,
+    valorAnterior,
+    valorRenovado,
+    incrementoProjetado,
+    incremento,
+    reajPct,
+    gapVsSweet
+  };
+}
+
+function sweetBand(r) {
+  if (r.status !== 'renovou') return 'all';
+  const gap = Number(r.calc?.gapVsSweet ?? 0);
+  if (gap > 10) return 'above';
+  if (gap < -10) return 'below';
+  return 'near';
+}
+
 function historyMetrics(competencia) {
-  const rows = rowsForCompetencia(competencia);
+  const allRows = rowsForCompetencia(competencia).map(r => ({ ...r, calc: historyRowDerived(r, competencia) }));
+  const statusFilter = state.historicoStatus || 'all';
+  const sweetFilter = state.historicoSweet || 'all';
+
+  const rows = allRows.filter(r => {
+    const statusOk = statusFilter === 'all' ? true : r.status === statusFilter;
+    const sweetOk = sweetFilter === 'all' ? true : sweetBand(r) === sweetFilter;
+    return statusOk && sweetOk;
+  });
+
   const base = rows.length;
   const renovaram = rows.filter(r => r.status === 'renovou').length;
   const naoRenovaram = rows.filter(r => r.status === 'nao_renovou').length;
@@ -3004,12 +3058,14 @@ function historyMetrics(competencia) {
   const receitaAnterior = rows.reduce((s, r) => s + Number(r.prev?.valor || 0), 0);
   const receitaRenovada = rows.filter(r => r.status === 'renovou').reduce((s, r) => s + Number(r.next?.valor || 0), 0);
   const ganhoRenovados = rows.filter(r => r.status === 'renovou').reduce((s, r) => s + (Number(r.next?.valor || 0) - Number(r.prev?.valor || 0)), 0);
+  const incrementoRealTotal = rows.filter(r => r.status === 'renovou').reduce((s, r) => s + Number(r.calc?.incremento || 0), 0);
+  const perdaVsSweetTotal = rows.filter(r => r.status === 'renovou').reduce((s, r) => s + Math.max(0, -(Number(r.calc?.gapVsSweet ?? 0))), 0);
   const receitaPerdida = rows.filter(r => r.status === 'nao_renovou').reduce((s, r) => s + Number(r.prev?.valor || 0), 0);
   const saldoLiquido = ganhoRenovados - receitaPerdida;
   const churnPreco = rows.filter(r => r.status === 'nao_renovou' && /pagar|preço|preco|caro/i.test(r.observacao || '')).length;
   return {
-    rows, base, renovaram, naoRenovaram, pendentes, receitaAnterior, receitaRenovada,
-    ganhoRenovados, receitaPerdida, saldoLiquido, churnPreco
+    rows, allRows, base, renovaram, naoRenovaram, pendentes, receitaAnterior, receitaRenovada,
+    ganhoRenovados, incrementoRealTotal, perdaVsSweetTotal, receitaPerdida, saldoLiquido, churnPreco
   };
 }
 
@@ -3111,13 +3167,13 @@ function currentPriceSuggestionRows(selectedMonth) {
   const active = activePatients().filter(p => ym(p.contratoAtual?.fimContrato) === selectedMonth);
   const comboBase = [
     { plano: 'Anual', frequencia: '1x', ideal: 335 },
-    { plano: 'Anual', frequencia: '2x', ideal: 545 },
-    { plano: 'Anual', frequencia: '3x', ideal: 745 },
     { plano: 'Semestral', frequencia: '1x', ideal: 365 },
-    { plano: 'Semestral', frequencia: '2x', ideal: 575 },
-    { plano: 'Semestral', frequencia: '3x', ideal: 705 },
     { plano: 'Mensal', frequencia: '1x', ideal: 395 },
+    { plano: 'Anual', frequencia: '2x', ideal: 545 },
+    { plano: 'Semestral', frequencia: '2x', ideal: 575 },
     { plano: 'Mensal', frequencia: '2x', ideal: 635 },
+    { plano: 'Anual', frequencia: '3x', ideal: 745 },
+    { plano: 'Semestral', frequencia: '3x', ideal: 705 },
     { plano: 'Mensal', frequencia: '3x', ideal: 775 }
   ];
   return comboBase.map(c => {
@@ -3136,7 +3192,7 @@ function currentPriceSuggestionRows(selectedMonth) {
       sweet,
       recuperacao
     };
-  }).filter(r => r.qtd > 0);
+  });
 }
 
 function renderMiniBars(rows) {
@@ -3276,12 +3332,33 @@ function renderHistoryTab() {
       <div class="toolbar">
         <div>
           <div class="section-title">Histórico por competência</div>
-          <div class="section-sub">Selecione o mês para comparar antes vs depois das renovações.</div>
+          <div class="section-sub">Selecione o mês e filtre a leitura entre renovados, não renovados e posição versus sweet spot.</div>
         </div>
-        <div>
-          <select id="competenciaSelect">
-            ${competencias.map(c => `<option value="${c}" ${c===selected?'selected':''}>${monthLabel(c)}</option>`).join('')}
-          </select>
+        <div class="toolbar-filters">
+          <div>
+            <label class="label">Competência</label><br />
+            <select id="competenciaSelect">
+              ${competencias.map(c => `<option value="${c}" ${c===selected?'selected':''}>${monthLabel(c)}</option>`).join('')}
+            </select>
+          </div>
+          <div>
+            <label class="label">Status</label><br />
+            <select id="historicoStatusSelect">
+              <option value="all" ${state.historicoStatus==='all'?'selected':''}>Todos</option>
+              <option value="renovou" ${state.historicoStatus==='renovou'?'selected':''}>Apenas renovados</option>
+              <option value="nao_renovou" ${state.historicoStatus==='nao_renovou'?'selected':''}>Apenas não renovados</option>
+              <option value="pendente" ${state.historicoStatus==='pendente'?'selected':''}>Apenas pendentes</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">Faixa vs sweet</label><br />
+            <select id="historicoSweetSelect">
+              <option value="all" ${state.historicoSweet==='all'?'selected':''}>Todas</option>
+              <option value="below" ${state.historicoSweet==='below'?'selected':''}>Abaixo do sweet</option>
+              <option value="near" ${state.historicoSweet==='near'?'selected':''}>Próximo do sweet</option>
+              <option value="above" ${state.historicoSweet==='above'?'selected':''}>Acima do sweet</option>
+            </select>
+          </div>
         </div>
       </div>
       <div class="grid cards-4">
@@ -3292,6 +3369,8 @@ function renderHistoryTab() {
         ${card('Receita anterior', `<span>${fmt(m.receitaAnterior)}</span>`)}
         ${card('Receita dos renovados', `<span>${fmt(m.receitaRenovada)}</span>`)}
         ${card('Ganho nos renovados', `<span class="accent">${fmt(m.ganhoRenovados)}</span>`)}
+        ${card('Incremento real total', `<span class="accent">${fmt(m.incrementoRealTotal)}</span>`, 'Somente pacientes que renovaram')}
+        ${card('Perda vs sweet total', `<span class="danger">${fmt(m.perdaVsSweetTotal)}</span>`, 'Quanto ficou abaixo do sweet')}
         ${card('Receita perdida', `<span class="danger">${fmt(m.receitaPerdida)}</span>`)}
         ${card('Saldo líquido', `<span class="${m.saldoLiquido >= 0 ? 'accent' : 'danger'}">${fmt(m.saldoLiquido)}</span>`)}
         ${card('Churn por preço', `<span>${fmtInt(m.churnPreco)}</span>`)}
@@ -3300,7 +3379,7 @@ function renderHistoryTab() {
 
     <div class="card section">
       <div class="section-title">${monthLabel(selected)} — detalhamento por paciente</div>
-      <div class="section-sub">Tabela com os campos estratégicos da renovação e comparação com o resultado real do mês.</div>
+      <div class="section-sub">Tabela com os campos estratégicos da renovação e comparação com o resultado real do mês. Exibindo ${fmtInt(m.rows.length)} de ${fmtInt(m.allRows.length)} pacientes da competência.</div>
       <div class="table-wrap">
         <table>
           <thead>
@@ -3315,22 +3394,38 @@ function renderHistoryTab() {
               <th>Reajuste %</th>
               <th>Incremento</th>
               <th>Preço renovado</th>
+              <th>Gap vs Sweet</th>
               <th>Obs.</th>
             </tr>
           </thead>
           <tbody>
             ${m.rows.map(r => {
-              const ideal = deriveIdeal(r.prev.plano, r.prev.frequencia, r.paciente.valorIdealAtual);
-              const sweet = getSweet({
-                plano: r.prev.plano,
-                frequencia: r.prev.frequencia,
-                fimContrato: r.prev.fimContrato || `${selected}-01`
-              }, ideal);
-              const incremento = Math.max(0, Math.min(sweet - Number(r.prev.valor || 0), ideal - Number(r.prev.valor || 0)));
-              const reajPct = Number(r.prev.valor || 0) > 0 ? (incremento / Number(r.prev.valor || 0)) * 100 : 0;
-              const precoRenovado = r.status === 'renovou' ? Number(r.next?.valor || 0) : null;
+              const sweet = r.calc.sweet;
+              const incremento = r.calc.incremento;
+              const reajPct = r.calc.reajPct;
+              const precoRenovado = r.calc.valorRenovado;
+              const gapVsSweet = r.calc.gapVsSweet;
               const dataRenovacao = r.event?.fimContratoAnterior || r.prev?.fimContrato || null;
               const dataRenovacaoFmt = dataRenovacao ? fmtDate(dataRenovacao) : '—';
+
+              let incrementoHtml = '—';
+              if (r.status === 'renovou') {
+                incrementoHtml = `<span class="${incremento >= 0 ? 'accent-text' : 'danger-text'}">${incremento >= 0 ? '+' : ''}${fmt(incremento)}</span>`;
+              } else if (r.status === 'pendente') {
+                incrementoHtml = `<span class="accent-text">+${fmt(incremento)}</span>`;
+              }
+
+              let reajusteHtml = '—';
+              if (r.status === 'renovou' || r.status === 'pendente') {
+                reajusteHtml = `${reajPct > 0 ? '+' : ''}${reajPct.toFixed(1)}%`;
+              }
+
+              let gapHtml = '—';
+              if (r.status === 'renovou') {
+                const gapClass = gapVsSweet >= 0 ? 'gap-positive' : (Math.abs(gapVsSweet) <= 10 ? 'gap-near' : 'gap-negative');
+                gapHtml = `<span class="gap-pill ${gapClass}">${gapVsSweet > 0 ? '+' : ''}${fmt(gapVsSweet)}</span>`;
+              }
+
               return `<tr>
                 <td><strong>${htmlEscape(r.paciente.nome)}</strong></td>
                 <td>${statusBadge(r.status)}</td>
@@ -3339,12 +3434,13 @@ function renderHistoryTab() {
                 <td>${htmlEscape(r.prev.plano || '—')}</td>
                 <td>${fmt(r.prev.valor)}</td>
                 <td>${fmt(sweet)}</td>
-                <td>${reajPct > 0 ? '+' : ''}${reajPct.toFixed(1)}%</td>
-                <td class="accent-text">+${fmt(incremento)}</td>
+                <td>${reajusteHtml}</td>
+                <td>${incrementoHtml}</td>
                 <td>${precoRenovado != null ? fmt(precoRenovado) : '—'}</td>
+                <td>${gapHtml}</td>
                 <td>${htmlEscape(r.observacao || '')}</td>
               </tr>`;
-            }).join('') || `<tr><td colspan="11" class="empty">Nenhum paciente encontrado nesta competência.</td></tr>`}
+            }).join('') || `<tr><td colspan="12" class="empty">Nenhum paciente encontrado nesta competência.</td></tr>`}
           </tbody>
         </table>
       </div>
@@ -3481,6 +3577,10 @@ function render() {
       .accent { color:#fb923c; }
       .accent-text { color:#fb923c; font-weight:700; }
       .danger-text { color:#f87171; font-weight:700; }
+      .gap-pill { display:inline-block; padding:4px 8px; border-radius:999px; font-size:11px; font-weight:700; }
+      .gap-negative { background:rgba(239,68,68,.14); color:#fca5a5; }
+      .gap-near { background:rgba(250,204,21,.14); color:#fde68a; }
+      .gap-positive { background:rgba(34,197,94,.14); color:#86efac; }
       .chips { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
       .chip { padding:8px 10px; border-radius:999px; background:#0f172a; border:1px solid #1e293b; color:#cbd5e1; font-size:12px; }
       .form-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; margin-top:14px; }
@@ -3553,6 +3653,20 @@ function bindEvents() {
   if (precosMesSelect) {
     precosMesSelect.addEventListener('change', (e) => {
       state.precosMes = e.target.value;
+      render();
+    });
+  }
+  const historicoStatusSelect = document.getElementById('historicoStatusSelect');
+  if (historicoStatusSelect) {
+    historicoStatusSelect.addEventListener('change', (e) => {
+      state.historicoStatus = e.target.value;
+      render();
+    });
+  }
+  const historicoSweetSelect = document.getElementById('historicoSweetSelect');
+  if (historicoSweetSelect) {
+    historicoSweetSelect.addEventListener('change', (e) => {
+      state.historicoSweet = e.target.value;
       render();
     });
   }
