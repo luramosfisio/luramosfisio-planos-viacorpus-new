@@ -2747,7 +2747,7 @@ const BEST_SWEETS = {
     "Mensal||3x": 775
   }
 };
-const STORAGE_KEY = 'mapa-renovacoes-historico-v3';
+const STORAGE_KEY = 'mapa-renovacoes-historico-v11';
 
 const MONTH_NAMES = {
   '01': 'Janeiro', '02': 'Fevereiro', '03': 'Março', '04': 'Abril',
@@ -2836,19 +2836,53 @@ function clone(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 
-function normalizePatient(p, idx) {
-  const contract = p.contratoAtual || {
+const ORIGINAL_BY_NAME = Object.fromEntries(SEED_PATIENTS.map(p => [p.nome, p]));
+
+function gitOriginalOf(p) {
+  const seed = ORIGINAL_BY_NAME[p.nome] || null;
+  const fallback = p.gitOriginal || {
     plano: p.plano,
     frequencia: p.frequencia,
-    valor: Number(p.valorAtual || 0),
-    fimContrato: p.fimContrato
+    valorAtual: Number(p.valorAtual || 0),
+    valorIdeal: Number(p.valorIdeal || 0),
+    prejuizo: Number(p.prejuizo || 0),
+    fimContrato: p.fimContrato || null
   };
-  const ideal = deriveIdeal(contract.plano, contract.frequencia, p.valorIdeal);
+  if (!seed) return clone(fallback);
+  return {
+    plano: seed.plano,
+    frequencia: seed.frequencia,
+    valorAtual: Number(seed.valorAtual || 0),
+    valorIdeal: Number(seed.valorIdeal || 0),
+    prejuizo: Number(seed.prejuizo || 0),
+    fimContrato: seed.fimContrato || null
+  };
+}
+
+function normalizePatient(p, idx) {
+  const original = gitOriginalOf(p);
+  const contract = p.contratoAtual || {
+    plano: original.plano,
+    frequencia: original.frequencia,
+    valor: Number(original.valorAtual || 0),
+    fimContrato: original.fimContrato
+  };
+  const ideal = deriveIdeal(contract.plano, contract.frequencia, original.valorIdeal);
   return {
     id: p.id || slugify(p.nome) || `patient-${idx + 1}`,
     nome: p.nome,
     ativo: p.ativo !== false,
     cadastro: p.cadastro || { observacoesGerais: '' },
+
+    // top-level originais travados ao Git
+    plano: original.plano,
+    frequencia: original.frequencia,
+    valorAtual: Number(original.valorAtual || 0),
+    valorIdeal: Number(original.valorIdeal || 0),
+    prejuizo: Number(original.prejuizo || 0),
+    fimContrato: original.fimContrato,
+    gitOriginal: clone(original),
+
     contratoAtual: {
       plano: contract.plano,
       frequencia: contract.frequencia,
@@ -2891,7 +2925,7 @@ function resetPatients() {
   if (!confirm('Isso vai apagar as alterações salvas no navegador e voltar para a versão inicial. Continuar?')) return;
   state.patients = SEED_PATIENTS.map(normalizePatient);
   savePatients();
-  state.flash = 'Base restaurada para a versão inicial.';
+  state.flash = 'Base restaurada para a versão inicial validada contra o Git.';
   render();
 }
 
@@ -2951,19 +2985,21 @@ function upcomingRenewalMap() {
 
 function patientRowForCompetencia(p, competencia) {
   const event = (p.historicoRenovacoes || []).find(h => h.competencia === competencia);
-  const originalFimContrato = p.fimContrato || p.contratoAnterior?.fimContrato || p.contratoAtual?.fimContrato || null;
+  const original = p.gitOriginal || gitOriginalOf(p);
+  const originalFimContrato = original.fimContrato || p.fimContrato || p.contratoAnterior?.fimContrato || p.contratoAtual?.fimContrato || null;
   const originalMonth = ym(originalFimContrato);
+
   if (event) {
     const prev = {
-      plano: event.planoAnterior || p.plano || p.contratoAnterior?.plano || p.contratoAtual?.plano,
-      frequencia: event.frequenciaAnterior || p.frequencia || p.contratoAnterior?.frequencia || p.contratoAtual?.frequencia,
-      valor: Number(event.valorAnterior ?? p.valorAtual ?? p.contratoAnterior?.valor ?? p.contratoAtual?.valor ?? 0),
+      plano: event.planoAnterior || original.plano || p.contratoAnterior?.plano || p.contratoAtual?.plano,
+      frequencia: event.frequenciaAnterior || original.frequencia || p.contratoAnterior?.frequencia || p.contratoAtual?.frequencia,
+      valor: Number(event.valorAnterior ?? original.valorAtual ?? p.contratoAnterior?.valor ?? p.contratoAtual?.valor ?? 0),
       fimContrato: event.fimContratoAnterior || originalFimContrato || null
     };
     const next = event.status === 'renovou' ? {
-      plano: event.planoNovo || p.contratoAtual?.plano || p.plano,
-      frequencia: event.frequenciaNova || p.contratoAtual?.frequencia || p.frequencia,
-      valor: Number(event.valorNovo ?? p.contratoAtual?.valor ?? p.valorAtual ?? 0),
+      plano: event.planoNovo || p.contratoAtual?.plano || original.plano,
+      frequencia: event.frequenciaNova || p.contratoAtual?.frequencia || original.frequencia,
+      valor: Number(event.valorNovo ?? p.contratoAtual?.valor ?? original.valorAtual ?? 0),
       fimContrato: event.novoFimContrato || p.contratoAtual?.fimContrato || null
     } : null;
     return {
@@ -2977,11 +3013,12 @@ function patientRowForCompetencia(p, competencia) {
       event
     };
   }
+
   if (originalMonth === competencia) {
     const prev = {
-      plano: p.plano || p.contratoAtual?.plano,
-      frequencia: p.frequencia || p.contratoAtual?.frequencia,
-      valor: Number(p.valorAtual ?? p.contratoAtual?.valor ?? 0),
+      plano: original.plano || p.contratoAtual?.plano,
+      frequencia: original.frequencia || p.contratoAtual?.frequencia,
+      valor: Number(original.valorAtual ?? p.contratoAtual?.valor ?? 0),
       fimContrato: originalFimContrato
     };
     return {
