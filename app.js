@@ -2772,7 +2772,7 @@ const state = {
   precosMes: '2026-03',
   historicoStatus: 'all',
   historicoSweet: 'all',
-  patients: loadPatients(),
+  patients: [],
   flash: '',
 };
 
@@ -3737,4 +3737,7 @@ function bindEvents() {
   if (resetBtn) resetBtn.addEventListener('click', resetPatients);
 }
 
-document.addEventListener('DOMContentLoaded', render);
+document.addEventListener('DOMContentLoaded', () => {
+  state.patients = loadPatients();
+  render();
+});
