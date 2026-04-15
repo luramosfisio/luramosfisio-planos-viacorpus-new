@@ -2951,18 +2951,20 @@ function upcomingRenewalMap() {
 
 function patientRowForCompetencia(p, competencia) {
   const event = (p.historicoRenovacoes || []).find(h => h.competencia === competencia);
+  const originalFimContrato = p.fimContrato || p.contratoAnterior?.fimContrato || p.contratoAtual?.fimContrato || null;
+  const originalMonth = ym(originalFimContrato);
   if (event) {
     const prev = {
-      plano: event.planoAnterior || p.contratoAnterior?.plano || p.contratoAtual.plano,
-      frequencia: event.frequenciaAnterior || p.contratoAnterior?.frequencia || p.contratoAtual.frequencia,
-      valor: Number(event.valorAnterior ?? p.contratoAnterior?.valor ?? p.contratoAtual.valor ?? 0),
-      fimContrato: event.fimContratoAnterior || p.contratoAnterior?.fimContrato || null
+      plano: event.planoAnterior || p.plano || p.contratoAnterior?.plano || p.contratoAtual?.plano,
+      frequencia: event.frequenciaAnterior || p.frequencia || p.contratoAnterior?.frequencia || p.contratoAtual?.frequencia,
+      valor: Number(event.valorAnterior ?? p.valorAtual ?? p.contratoAnterior?.valor ?? p.contratoAtual?.valor ?? 0),
+      fimContrato: event.fimContratoAnterior || originalFimContrato || null
     };
     const next = event.status === 'renovou' ? {
-      plano: event.planoNovo || p.contratoAtual.plano,
-      frequencia: event.frequenciaNova || p.contratoAtual.frequencia,
-      valor: Number(event.valorNovo ?? p.contratoAtual.valor ?? 0),
-      fimContrato: event.novoFimContrato || p.contratoAtual.fimContrato || null
+      plano: event.planoNovo || p.contratoAtual?.plano || p.plano,
+      frequencia: event.frequenciaNova || p.contratoAtual?.frequencia || p.frequencia,
+      valor: Number(event.valorNovo ?? p.contratoAtual?.valor ?? p.valorAtual ?? 0),
+      fimContrato: event.novoFimContrato || p.contratoAtual?.fimContrato || null
     } : null;
     return {
       include: true,
@@ -2975,10 +2977,13 @@ function patientRowForCompetencia(p, competencia) {
       event
     };
   }
-  const currentMonth = ym(p.contratoAtual?.fimContrato);
-  const prevMonth = ym(p.contratoAnterior?.fimContrato);
-  if (currentMonth === competencia || prevMonth === competencia) {
-    const prev = currentMonth === competencia ? clone(p.contratoAtual) : clone(p.contratoAnterior || p.contratoAtual);
+  if (originalMonth === competencia) {
+    const prev = {
+      plano: p.plano || p.contratoAtual?.plano,
+      frequencia: p.frequencia || p.contratoAtual?.frequencia,
+      valor: Number(p.valorAtual ?? p.contratoAtual?.valor ?? 0),
+      fimContrato: originalFimContrato
+    };
     return {
       include: true,
       status: 'pendente',
@@ -3330,34 +3335,41 @@ function renderHistoryTab() {
   return `
     <div class="card section">
       <div class="toolbar">
-        <div>
-          <div class="section-title">Histórico por competência</div>
-          <div class="section-sub">Selecione o mês e filtre a leitura entre renovados, não renovados e posição versus sweet spot.</div>
+        <div class="toolbar-top">
+          <div>
+            <div class="section-title">Histórico por competência</div>
+            <div class="section-sub">Selecione o mês e filtre a leitura entre renovados, não renovados e posição versus sweet spot.</div>
+          </div>
         </div>
         <div class="toolbar-filters">
           <div>
-            <label class="label">Competência</label><br />
-            <select id="competenciaSelect">
-              ${competencias.map(c => `<option value="${c}" ${c===selected?'selected':''}>${monthLabel(c)}</option>`).join('')}
-            </select>
+            <label class="label">Competência</label>
+            <div class="month-chip-row">
+              ${competencias.map(c => `
+                <button class="month-chip ${c===selected?'active':''}" data-competencia-chip="${c}">
+                  <div class="month">${monthLabel(c).replace('/20','/')}</div>
+                  <div class="meta">${fmtInt(historyMetrics(c).allRows.length)} pacientes</div>
+                </button>
+              `).join('')}
+            </div>
           </div>
           <div>
-            <label class="label">Status</label><br />
-            <select id="historicoStatusSelect">
-              <option value="all" ${state.historicoStatus==='all'?'selected':''}>Todos</option>
-              <option value="renovou" ${state.historicoStatus==='renovou'?'selected':''}>Apenas renovados</option>
-              <option value="nao_renovou" ${state.historicoStatus==='nao_renovou'?'selected':''}>Apenas não renovados</option>
-              <option value="pendente" ${state.historicoStatus==='pendente'?'selected':''}>Apenas pendentes</option>
-            </select>
+            <label class="label">Status</label>
+            <div class="segmented">
+              <button class="seg-chip ${state.historicoStatus==='all'?'active':''}" data-hstatus="all">Todos</button>
+              <button class="seg-chip ${state.historicoStatus==='renovou'?'active':''}" data-hstatus="renovou">Renovados</button>
+              <button class="seg-chip ${state.historicoStatus==='nao_renovou'?'active':''}" data-hstatus="nao_renovou">Não renovados</button>
+              <button class="seg-chip ${state.historicoStatus==='pendente'?'active':''}" data-hstatus="pendente">Pendentes</button>
+            </div>
           </div>
           <div>
-            <label class="label">Faixa vs sweet</label><br />
-            <select id="historicoSweetSelect">
-              <option value="all" ${state.historicoSweet==='all'?'selected':''}>Todas</option>
-              <option value="below" ${state.historicoSweet==='below'?'selected':''}>Abaixo do sweet</option>
-              <option value="near" ${state.historicoSweet==='near'?'selected':''}>Próximo do sweet</option>
-              <option value="above" ${state.historicoSweet==='above'?'selected':''}>Acima do sweet</option>
-            </select>
+            <label class="label">Faixa vs sweet</label>
+            <div class="segmented">
+              <button class="seg-chip ${state.historicoSweet==='all'?'active':''}" data-hsweet="all">Todas</button>
+              <button class="seg-chip ${state.historicoSweet==='below'?'active':''}" data-hsweet="below">Abaixo</button>
+              <button class="seg-chip ${state.historicoSweet==='near'?'active':''}" data-hsweet="near">Próximo</button>
+              <button class="seg-chip ${state.historicoSweet==='above'?'active':''}" data-hsweet="above">Acima</button>
+            </div>
           </div>
         </div>
       </div>
@@ -3405,7 +3417,7 @@ function renderHistoryTab() {
               const reajPct = r.calc.reajPct;
               const precoRenovado = r.calc.valorRenovado;
               const gapVsSweet = r.calc.gapVsSweet;
-              const dataRenovacao = r.event?.fimContratoAnterior || r.prev?.fimContrato || null;
+              const dataRenovacao = r.event?.fimContratoAnterior || r.paciente?.fimContrato || r.prev?.fimContrato || null;
               const dataRenovacaoFmt = dataRenovacao ? fmtDate(dataRenovacao) : '—';
 
               let incrementoHtml = '—';
@@ -3656,20 +3668,24 @@ function bindEvents() {
       render();
     });
   }
-  const historicoStatusSelect = document.getElementById('historicoStatusSelect');
-  if (historicoStatusSelect) {
-    historicoStatusSelect.addEventListener('change', (e) => {
-      state.historicoStatus = e.target.value;
+  document.querySelectorAll('[data-competencia-chip]').forEach((el) => {
+    el.addEventListener('click', () => {
+      state.competencia = el.getAttribute('data-competencia-chip');
       render();
     });
-  }
-  const historicoSweetSelect = document.getElementById('historicoSweetSelect');
-  if (historicoSweetSelect) {
-    historicoSweetSelect.addEventListener('change', (e) => {
-      state.historicoSweet = e.target.value;
+  });
+  document.querySelectorAll('[data-hstatus]').forEach((el) => {
+    el.addEventListener('click', () => {
+      state.historicoStatus = el.getAttribute('data-hstatus');
       render();
     });
-  }
+  });
+  document.querySelectorAll('[data-hsweet]').forEach((el) => {
+    el.addEventListener('click', () => {
+      state.historicoSweet = el.getAttribute('data-hsweet');
+      render();
+    });
+  });
   const manualForm = document.getElementById('manualForm');
   if (manualForm) {
     manualForm.addEventListener('submit', (e) => {
